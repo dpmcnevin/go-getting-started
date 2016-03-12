@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/russross/blackfriday"
 )
 
 func main() {
@@ -14,7 +15,7 @@ func main() {
 	if port == "" {
 		log.Fatal("$PORT must be set")
 	}
-
+	// var router *gin.Engine
 	router := gin.New()
 	router.Use(gin.Logger())
 	router.LoadHTMLGlob("templates/*.tmpl.html")
@@ -22,6 +23,9 @@ func main() {
 
 	router.GET("/", func(c *gin.Context) {
 		c.HTML(http.StatusOK, "index.tmpl.html", nil)
+	})
+	router.GET("/mark", func(c *gin.Context) {
+	 c.String(http.StatusOK, string(blackfriday.MarkdownBasic([]byte("**hi!**"))))
 	})
 
 	router.Run(":" + port)
