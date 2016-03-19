@@ -94,7 +94,7 @@ func main() {
 
         	var buffer bytes.Buffer
 
-        	buffer.WriteString("name: " + name + "message: " + message)
+        	buffer.WriteString("name: " + name + "\nmessage: " + message + "\n")
 
         	c.String(http.StatusOK, buffer.String())
         	
