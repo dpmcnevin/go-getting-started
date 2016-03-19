@@ -87,7 +87,18 @@ func main() {
     })
 
     router.POST("/testPOST", func(c *gin.Context){
-    	log.Printf("C: %#v", c)
+    	log.Printf("C: %#v\n", c)
+
+    	name := c.PostForm("name")
+        	message := c.PostForm("message")
+
+        	var buffer bytes.Buffer
+
+        	buffer.WriteString("name: " + name + "message: " + message)
+
+        	c.String(http.StatusOK, buffer.String())
+        	
+        	
     })
     
     router.Run(":" + port)
